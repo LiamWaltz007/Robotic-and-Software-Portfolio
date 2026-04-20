@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Htet Wai Yan — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cyan: #00f5ff;
+  --purple: #a855f7;
+  --pink: #f000ff;
+  --bg: #060610;
+  --bg2: #0d0d1f;
+  --card: #0f0f2a;
+  --text: #e2e8f0;
+  --muted: #6b7280;
+  --border: rgba(0,245,255,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s;
+  box-shadow: 0 0 10px var(--cyan);
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(0,245,255,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: all 0.15s ease;
+}
+
+/* Animated grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; right: 0; left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: rgba(6,6,16,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--cyan);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(--cyan); }
+.nav-links a:hover::after { width: 100%; }
+
+/* SECTIONS */
+section {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 100px 60px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* SECTION TITLE */
+.section-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 6px;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-heading {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  margin-top: 12px;
+}
+
+/* ===== HOME ===== */
+#home {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding-top: 120px;
+}
+
+.home-text { flex: 1; }
+
+.home-greeting {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 6px;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.home-name {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+
+.home-name span {
+  background: linear-gradient(135deg, var(--cyan), var(--purple), var(--pink));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.home-role {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+.home-role .highlight {
+  color: var(--purple);
+  -webkit-text-fill-color: var(--purple);
+}
+
+.home-desc {
+  font-size: 1rem;
+  color: #94a3b8;
+  line-height: 1.8;
+  max-width: 480px;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+
+.home-btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s 1s forwards;
+}
+
+.btn-primary {
+  padding: 12px 32px;
+  border: none;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  color: #000;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,245,255,0.3);
+}
+
+.btn-outline {
+  padding: 12px 32px;
+  border: 1px solid var(--cyan);
+  background: transparent;
+  color: var(--cyan);
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s;
+  cursor: none;
+}
+
+.btn-outline:hover {
+  background: rgba(0,245,255,0.1);
+  box-shadow: 0 0 20px rgba(0,245,255,0.2);
+}
+
+/* Profile picture home */
+.home-profile {
+  flex-shrink: 0;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 1s 0.5s forwards;
+}
+
+.glow-ring-outer {
+  position: absolute;
+  inset: -12px;
+  border-radius: 28px;
+  background: conic-gradient(from 0deg, var(--cyan), var(--purple), var(--pink), var(--cyan));
+  animation: spin 4s linear infinite;
+  filter: blur(3px);
+  opacity: 0.8;
+}
+
+.glow-ring-outer2 {
+  position: absolute;
+  inset: -18px;
+  border-radius: 32px;
+  background: conic-gradient(from 180deg, var(--cyan), var(--purple), var(--pink), var(--cyan));
+  animation: spin 7s linear infinite reverse;
+  filter: blur(12px);
+  opacity: 0.5;
+}
+
+.profile-img-box {
+  position: relative;
+  width: 260px;
+  height: 310px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 3px solid var(--bg);
+  z-index: 2;
+}
+
+.profile-img-box img {
+  width: 100%;
+  height: 100%; /* ✅ FIX */
+  object-fit: cover;
+  object-position: center;
+  transform: scaleX(-1) scale(1.05);
+
+}
+
+.profile-img-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,245,255,0.02) 3px, rgba(0,245,255,0.02) 4px);
+}
+
+/* ===== ABOUT ===== */
+#about { padding-top: 120px; }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: start;
+}
+
+.about-bio {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: #94a3b8;
+  margin-bottom: 30px;
+}
+
+.about-bio strong { color: var(--cyan); }
+
+.edu-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.edu-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--cyan), var(--purple));
+}
+
+.edu-card h4 {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  color: var(--cyan);
+  margin-bottom: 6px;
+}
+
+.edu-card p { font-size: 0.95rem; color: #94a3b8; }
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  padding: 8px 18px;
+  border: 1px solid rgba(168,85,247,0.4);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--purple);
+  background: rgba(168,85,247,0.06);
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.skill-tag:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,245,255,0.08);
+  transform: translateY(-2px);
+}
+
+/* ===== PROJECTS ===== */
+#projects { padding-top: 120px; }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
+  cursor: none;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.project-card:hover { transform: translateY(-4px); border-color: rgba(0,245,255,0.3); }
+.project-card:hover::before { transform: scaleX(1); }
+
+.project-icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.project-card h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.project-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.ptag {
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 3px;
+  background: rgba(0,245,255,0.08);
+  color: var(--cyan);
+  border: 1px solid rgba(0,245,255,0.2);
+  letter-spacing: 1px;
+}
+
+/* ===== ACHIEVEMENT ===== */
+#achievement { padding-top: 120px; }
+
+.achievement-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.ach-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.3s;
+}
+
+.ach-card:hover {
+  border-color: rgba(168,85,247,0.4);
+  transform: translateX(4px);
+}
+
+.ach-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ach-card h4 {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.ach-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+/* ===== EXPERIENCE ===== */
+#experience { padding-top: 120px; }
+
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--cyan), var(--purple), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -36px;
+  top: 6px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+.timeline-date {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.65rem;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.timeline-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px 26px;
+  transition: border-color 0.3s;
+}
+
+.timeline-card:hover { border-color: rgba(0,245,255,0.3); }
+
+.timeline-card h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.timeline-card .org {
+  font-size: 0.85rem;
+  color: var(--purple);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.timeline-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+/* ===== CONTACT ===== */
+#contact { padding-top: 120px; padding-bottom: 80px; }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.contact-info p {
+  font-size: 1rem;
+  color: #94a3b8;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.contact-icon {
+  width: 42px; height: 42px;
+  border-radius: 8px;
+  background: rgba(0,245,255,0.08);
+  border: 1px solid rgba(0,245,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.contact-item a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.contact-item a:hover { color: var(--cyan); }
+
+.social-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.social-btn {
+  padding: 10px 22px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.social-btn:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,245,255,0.06);
+}
+
+/* Contact right - glowing card */
+.contact-cta {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-cta::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple), var(--pink));
+  z-index: -1;
+  opacity: 0.3;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.contact-cta h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 14px;
+}
+
+.contact-cta p { color: var(--muted); margin-bottom: 28px; line-height: 1.7; }
+
+/* FOOTER */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 28px;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+}
+
+footer span { color: var(--cyan); }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { gap: 14px; }
+  .nav-links a { font-size: 0.72rem; letter-spacing: 1px; }
+  section { padding: 100px 20px 50px; }
+  #home { flex-direction: column-reverse; align-items: center; text-align: center; }
+  .home-desc { margin: 0 auto 36px; }
+  .home-btns { justify-content: center; }
+  .about-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .profile-img-box { width: 200px; height: 240px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">HWY</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievement">Achievement</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="home-text">
+    <div class="home-greeting">// Hello, World</div>
+    <h1 class="home-name">Htet Wai<br><span>Yan</span></h1>
+    <div class="home-role"><span class="highlight">Robotic</span> &amp; Software Engineer</div>
+    <p class="home-desc">Building the future through robotics, code, and education. Empowering Myanmar's youth with technology skills that go beyond borders.</p>
+    <div class="home-btns">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-outline">Contact Me</a>
+    </div>
+  </div>
+  <div class="home-profile">
+    <div class="glow-ring-outer2"></div>
+    <div class="glow-ring-outer"></div>
+    <div class="profile-img-box">
+      <img src="Mr. Htet.jpg" alt="Htet Wai Yan">
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-title">// 01. About</div>
+  <h2 class="section-heading">About Me</h2>
+  <div class="about-grid">
+    <div>
+      <p class="about-bio">
+        I'm <strong>Htet Wai Yan</strong>, a Robotic & Software Engineer based in <strong>Yangon, Myanmar</strong>. I'm currently studying <strong>Computer Science</strong> at the University of the People on a full scholarship.
+      </p>
+      <p class="about-bio">
+        I was awarded the <strong>Best Coach Award</strong> at the World Robot Olympiad Myanmar 2025, where I guided my students to the <strong>Singapore International Round</strong>. I run both free and paid robotic classes to empower Myanmar's next generation of engineers.
+      </p>
+      <p class="about-bio">
+        Currently preparing for <strong>Robotic Engineering at KMITL</strong>, and co-founding <strong>RoboPath Myanmar</strong> to build a lasting tech education ecosystem.
+      </p>
+      <div class="edu-card">
+        <h4>🎓 University of the People</h4>
+        <p>B.Sc. Computer Science — Scholarship Recipient<br>1st Year (In Progress)</p>
+      </div>
+    </div>
+    <div>
+      <p style="font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:4px;color:var(--cyan);margin-bottom:20px;">// SKILLS</p>
+      <div class="skills-grid">
+        <span class="skill-tag">Website Dev</span>
+        <span class="skill-tag">Robotics</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">MIT Scratch</span>
+        <span class="skill-tag">LEGO SPIKE Prime</span>
+        <span class="skill-tag">Business Strategy</span>
+        <span class="skill-tag">Management</span>
+        <span class="skill-tag">STEM Education</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-title">// 02. Projects</div>
+  <h2 class="section-heading">Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-icon">🦾</div>
+      <h3>Robotic Arm</h3>
+      <p>A programmable robotic arm capable of precise movement and task automation using servo motors and custom control logic.</p>
+      <div class="project-tags"><span class="ptag">Robotics</span><span class="ptag">Python</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">💡</div>
+      <h3>Hand Gesture LED On/Off</h3>
+      <p>A gesture-controlled system that uses computer vision to detect hand movements and toggle LEDs in real time.</p>
+      <div class="project-tags"><span class="ptag">Python</span><span class="ptag">CV</span><span class="ptag">Hardware</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">✋</div>
+      <h3>Robotic Hand</h3>
+      <p>A mechanical robotic hand that mimics human finger movements, built for prosthetic and educational demonstration purposes.</p>
+      <div class="project-tags"><span class="ptag">Robotics</span><span class="ptag">3D Design</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🪙</div>
+      <h3>Coin Eating Bot</h3>
+      <p>An autonomous robot designed to locate, collect, and sort coins using sensors and a custom intake mechanism.</p>
+      <div class="project-tags"><span class="ptag">Robotics</span><span class="ptag">Automation</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🧩</div>
+      <h3>Rubik's Cube Solver</h3>
+      <p>An automated Rubik's Cube solving robot that scans the cube state and executes the optimal solution sequence.</p>
+      <div class="project-tags"><span class="ptag">Algorithm</span><span class="ptag">Robotics</span><span class="ptag">Python</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENT -->
+<section id="achievement">
+  <div class="section-title">// 03. Achievement</div>
+  <h2 class="section-heading">Achievements</h2>
+  <div class="achievement-list">
+    <div class="ach-card">
+      <div class="ach-icon">🏆</div>
+      <div>
+        <h4>Best Coach Award</h4>
+        <p>World Robot Olympiad Myanmar 2025 — RoboMission category. Led students to the Singapore International Round.</p>
+      </div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">🎓</div>
+      <div>
+        <h4>UoPeople Scholarship</h4>
+        <p>Full scholarship recipient at University of the People for B.Sc. Computer Science.</p>
+      </div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">🇺🇸</div>
+      <div>
+        <h4>American Center STEM Leadership</h4>
+        <p>Volunteer leader in STEM education initiative organized by the American Center.</p>
+      </div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">✈️</div>
+      <div>
+        <h4>EEVS Education Visa Volunteer</h4>
+        <p>Active volunteer supporting education visa programs and international student pathways.</p>
+      </div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">💡</div>
+      <div>
+        <h4>Venture Hackathon Participant</h4>
+        <p>Competed in a venture-focused hackathon, developing innovative solutions under pressure.</p>
+      </div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">📜</div>
+      <div>
+        <h4>Royal Academic Institute GED</h4>
+        <p>GED certification from Royal Academic Institute, demonstrating academic excellence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-title">// 04. Experience</div>
+  <h2 class="section-heading">Experience</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2025 — PRESENT</div>
+      <div class="timeline-card">
+        <h3>Co-Founder &amp; CTO</h3>
+        <div class="org">RoboPath Myanmar</div>
+        <p>Co-founded a robotics education startup focused on building Myanmar's next generation of engineers through structured programs and competitions.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2025 — PRESENT</div>
+      <div class="timeline-card">
+        <h3>Robotic Club Instructor</h3>
+        <div class="org">Sayar Chit Academy</div>
+        <p>Leading a robotics club, teaching students fundamentals of robotics, programming, and competition preparation.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2025</div>
+      <div class="timeline-card">
+        <h3>Robotic Trainer</h3>
+        <div class="org">World Robot Olympiad Myanmar</div>
+        <p>Trained and coached students for WRO 2025. Achieved Best Coach Award and qualified students for the Singapore International Round.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">ARSARI</div>
+      <div class="timeline-card">
+        <h3>STEM Instructor</h3>
+        <div class="org">Arsari</div>
+        <p>Delivered STEM education programs, covering robotics, programming, and science fundamentals for young learners.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-title">// 05. Contact</div>
+  <h2 class="section-heading">Get In Touch</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p>I'm open to collaborations, speaking opportunities, and building the future of tech education together. Feel free to reach out!</p>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <a href="mailto:liamtech.edu@gmail.com">liamtech.edu@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <span style="color:#94a3b8;font-size:0.95rem;">Bahan Township, Yangon, Myanmar</span>
+      </div>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/home?originalSubdomain=mm" target="_blank" class="social-btn">LinkedIn</a>
+        <a href="https://www.facebook.com/htet.wai.yan.876755?mibextid=ZbWKwL" target="_blank" class="social-btn">Facebook</a>
+        <a href="https://github.com/" target="_blank" class="social-btn">GitHub</a>
+      </div>
+    </div>
+    <div class="contact-cta">
+      <h3>Let's Build Something</h3>
+      <p>Whether it's a robotics project, an education initiative, or a software collaboration — I'd love to connect and create something meaningful.</p>
+      <a href="mailto:liamtech.edu@gmail.com" class="btn-primary">Send Message</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed &amp; Built by <span>Htet Wai Yan</span> — &copy; 2025</p>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--cyan)' : '';
+  });
+});
+
+// Fade in on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.project-card, .ach-card, .timeline-item, .skill-tag').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
